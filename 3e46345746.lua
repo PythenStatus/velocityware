@@ -1,3 +1,8 @@
+local settings = {
+    HeadHitboxSize = 0.13, -- Default size for head hitbox
+    HRPHitboxSize = 0.13   -- Default size for HRP hitbox
+}
+
 local function getplrsname()
     for i, v in pairs(game:GetChildren()) do
         if v.ClassName == "Players" then
