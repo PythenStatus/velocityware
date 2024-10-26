@@ -1,3 +1,6 @@
+local HHBSize = 13
+local HRPHBSize = 13
+
 function getplrsname()
 for i,v in pairs(game:GetChildren()) do
 if v.ClassName == "Players" then
