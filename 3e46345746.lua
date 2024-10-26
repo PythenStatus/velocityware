@@ -1,3 +1,17 @@
+local settings = {
+    Aimbot = false,
+    Aiming = false,
+    Aimbot_AimPart = "Head",
+    Aimbot_TeamCheck = true,
+    Aimbot_Draw_FOV = false,
+    Aimbot_FOV_Radius = 200,
+    Aimbot_FOV_Color = Color3.fromRGB(255, 255, 255),
+    Aimbot_Smoothness = 0.5,
+    RainbowFOV = false, -- Added RainbowFOV setting
+    HeadHitboxSize = 13,
+    HRPHitboxSize = 13,
+}
+
 function getplrsname()
     for i, v in pairs(game:GetChildren()) do
         if v.ClassName == "Players" then
