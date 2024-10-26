@@ -1,4 +1,3 @@
--- Loadstring Script
 local function getplrsname()
     for i, v in pairs(game:GetChildren()) do
         if v.ClassName == "Players" then
@@ -10,47 +9,47 @@ end
 local players = getplrsname()
 local plr = game[players].LocalPlayer
 
--- settings is passed as a parameter to this script
+-- This function will set up the hitboxes
 local function setupHitboxes(settings)
     coroutine.resume(coroutine.create(function()
         while wait(1) do
             for _, v in pairs(game[players]:GetPlayers()) do
                 if v.Name ~= plr.Name and v.Character then
-                    -- Ensure HeadHB exists
-                    if not v.Character:FindFirstChild("HeadHB") then
-                        local headHB = Instance.new("Part")
+                    -- Check and create HeadHB if it doesn't exist
+                    local headHB = v.Character:FindFirstChild("HeadHB")
+                    if not headHB then
+                        headHB = Instance.new("Part")
                         headHB.Name = "HeadHB"
                         headHB.CanCollide = false
                         headHB.Transparency = 0.5
-                        headHB.Size = Vector3.new(settings.HeadHitboxSize, settings.HeadHitboxSize, settings.HeadHitboxSize)
                         headHB.Parent = v.Character
                     end
-
-                    -- Ensure HumanoidRootPart exists
-                    if not v.Character:FindFirstChild("HumanoidRootPart") then
-                        local hrp = Instance.new("Part")
-                        hrp.Name = "HumanoidRootPart"
-                        hrp.CanCollide = false
-                        hrp.Transparency = 0.5
-                        hrp.Size = Vector3.new(settings.HRPHitboxSize, settings.HRPHitboxSize, settings.HRPHitboxSize)
-                        hrp.Parent = v.Character
-                    end
-
-                    -- Update sizes
-                    local headHB = v.Character.HeadHB
+                    
+                    -- Check and create HumanoidRootPart if it doesn't exist
                     local humanoidRootPart = v.Character:FindFirstChild("HumanoidRootPart")
-
-                    if headHB then
-                        headHB.Size = Vector3.new(settings.HeadHitboxSize, settings.HeadHitboxSize, settings.HeadHitboxSize)
+                    if not humanoidRootPart then
+                        humanoidRootPart = Instance.new("Part")
+                        humanoidRootPart.Name = "HumanoidRootPart"
+                        humanoidRootPart.CanCollide = false
+                        humanoidRootPart.Transparency = 0.5
+                        humanoidRootPart.Parent = v.Character
                     end
 
-                    if humanoidRootPart then
-                        humanoidRootPart.Size = Vector3.new(settings.HRPHitboxSize, settings.HRPHitboxSize, settings.HRPHitSize)
-                    end
+                    -- Update sizes based on settings
+                    headHB.Size = Vector3.new(settings.HeadHitboxSize, settings.HeadHitboxSize, settings.HeadHitboxSize)
+                    humanoidRootPart.Size = Vector3.new(settings.HRPHitboxSize, settings.HRPHitboxSize, settings.HRPHitboxSize)
+
+                    -- Optional: Set CanCollide and Transparency
+                    headHB.CanCollide = false
+                    headHB.Transparency = 0.5
+
+                    humanoidRootPart.CanCollide = false
+                    humanoidRootPart.Transparency = 0.5
                 end
             end
         end
     end))
 end
 
-setupHitboxes(settings)  -- Call the function with settings
+-- Call the setup function with the passed settings
+setupHitboxes(settings)
